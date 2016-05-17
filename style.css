@@ -1,0 +1,59 @@
+
+div.agdgRow {
+	display:block;	
+	background-color:#151515;
+}
+div.agdgEntry {
+	border: 4px solid #AAAAAA;
+	overflow:hidden;
+	width:300px;
+	height:400px;
+	display:inline-block;	
+	background-color:#1a1a22;	
+	vertical-align:top;
+	margin:16px;
+}
+
+div.agdgEntryText p {
+	font-family:monospace;
+	font-size:8pt;
+	color:white;
+	margin:0;
+}
+
+div.agdgEntryImage {
+	width:300px;
+	height:200px;
+	max-height:200px;
+}
+div.agdgEntryImage img {	
+	width:300px;
+	max-height:200px;	
+	position:relative;
+	top:50%;
+	transform: translateY(-50%);
+}
+
+p.agdgEntryTitle {
+	background-color:#9999BB;
+	font-family:monospace;
+	font-size:13pt;
+	color:black;
+	text-align:center;	
+	margin:0;
+	font-weight:bold;
+}
+
+div.agdgEntryInfo {
+	background-color:#2a2a33;
+	margin-bottom:4px;	
+}
+
+div.agdgEntryInfo p {	
+	margin-left:4px;
+	margin-bottom:4px;
+}
+
+div.agdgEntryProgress p {
+	margin-left:8px;
+}
