@@ -28,19 +28,22 @@ namespace AgdgRecap
             _postId = postId;
 
             _id = jObject["no"].ToString();
-            var comment = jObject["com"].ToString();
-            var gIdx = comment.IndexOf("Game:");
-            if (gIdx == -1)
+            var rawComment = jObject["com"].ToString();
+            var comment = CleanComment(rawComment);
+            if (comment == "")
                 return;
+            
+            var lines = comment.Replace("<br>", "♫").Split('♫');
+            Game = GetValue(lines, "Game Name:");
+            Dev = GetValue(lines, "Dev Name:");
+            Tools = GetValue(lines, "Tools Used:");
+            Web = GetValue(lines, "Website(s):");
+            if (Web == null)
+                Web = GetValue(lines, "Website:");
 
-            var lines = comment.Substring(gIdx).Replace("<br>", "♫").Split('♫');
-            Game = GetValue(lines, "Game:");
-            Dev = GetValue(lines, "Dev:");
-            Tools = GetValue(lines, "Tools:");
-            Web = GetValue(lines, "Web:");
             GetProgress(lines);
 
-            if (Game == null || Dev == null || Tools == null || Web == null)
+            if (Game == null || Game == "" || Dev == null || Tools == null || Web == null)
                 return;
             
             //Build image path
@@ -56,10 +59,24 @@ namespace AgdgRecap
             _isValid = true;
         }
 
+        static string CleanComment(string comment)
+        {
+            var gIdx = comment.IndexOf("Game Name:");
+            if (gIdx == -1)
+                return "";
+            comment = comment.Substring(gIdx);
+
+            comment = comment.Replace("<span class=\"quote\">&gt;", "");
+            comment = comment.Replace("</span>", "");
+            comment = comment.Replace("<wbr>", "");
+            comment = comment.Replace("&#039;", "'");
+            return comment;
+        }
+
         string GetValue(string[] lines, string label)
         {
             foreach (var line in lines)
-                if (line.Length > label.Length && line.Substring(0, label.Length) == label)
+                if (line.Length >= label.Length && line.Substring(0, label.Length) == label)
                 {
                     return line.Substring(label.Length).Trim().Replace("https://", "");
                 }
@@ -77,7 +94,7 @@ namespace AgdgRecap
                     if (line[0] == '+')
                         GoodProgress.Add(line.Substring(1));
                     if (line[0] == '-')
-                        GoodProgress.Add(line.Substring(1));
+                        BadProgress.Add(line.Substring(1));
                 }
         }
 

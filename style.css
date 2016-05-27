@@ -1,23 +1,60 @@
+body {
+	background-color:#29044a;
+	margin:0;
+}
+
+div.agdgHeader {	
+	margin:0;
+	width:1372;
+	max-width:1372;
+	min-width:1372;	
+	height: 232;
+	color:0a6858;
+}
+
+div.agdgHeader div {
+	display:inline-block;
+	margin-left:16px;
+	font-family:"calibri";
+}
+
+div.agdgHeader h1 {
+	margin:0px;
+	margin-top:16px;
+	font-size:80pt;
+}
+
+div.agdgHeader h2 {
+	margin:0px;	
+	font-size:32pt;
+}
+
+div.agdgHeader img {
+	float:right;
+	display:inline-block;	
+	width:200;
+	height:200;
+	margin:16;
+}	
 
 div.agdgRow {
-	display:block;	
-	background-color:#151515;
+	margin:0;
+	display:block;		
 }
 div.agdgEntry {
-	border: 4px solid #AAAAAA;
+	border: 4px solid #0a6858;
 	overflow:hidden;
 	width:300px;
 	height:400px;
 	display:inline-block;	
-	background-color:#1a1a22;	
+	background-color:#0c2c56;
 	vertical-align:top;
 	margin:16px;
+	font-family:calibri;
 }
 
-div.agdgEntryText p {
-	font-family:monospace;
-	font-size:8pt;
-	color:white;
+div.agdgEntryText p {	
+	font-size:9pt;	
 	margin:0;
 }
 
@@ -35,17 +72,17 @@ div.agdgEntryImage img {
 }
 
 p.agdgEntryTitle {
-	background-color:#9999BB;
-	font-family:monospace;
+	background-color:#0a6858;	
 	font-size:13pt;
-	color:black;
+	color:#96be62;
 	text-align:center;	
 	margin:0;
 	font-weight:bold;
 }
 
 div.agdgEntryInfo {
-	background-color:#2a2a33;
+	color:#7ab318;
+	background-color:#0c2c56;
 	margin-bottom:4px;	
 }
 
@@ -55,5 +92,6 @@ div.agdgEntryInfo p {
 }
 
 div.agdgEntryProgress p {
+	color:#0a6858;
 	margin-left:8px;
 }
