@@ -10,7 +10,7 @@ namespace AgdgRecap
 {
     class HtmlWriter
     {
-        public static void WriteHtml(List<AgdgEntry> entries)
+        public static void WriteHtml(List<AgdgEntry> entries, string htmlName)
         {
             XDocument xDoc = new XDocument();
             XElement xHtml = new XElement("html");
@@ -49,7 +49,7 @@ namespace AgdgRecap
             }
             xBody.Add(xRowDiv); 
 
-            xDoc.Save("test.html");
+            xDoc.Save(htmlName + ".html");
         }
 
         static void AddHeader(XElement xBody)
@@ -59,7 +59,7 @@ namespace AgdgRecap
 
             XElement xTitDiv = new XElement("div");
             xTitDiv.Add(new XElement("h1", "AGDG Weekly Recap"));
-            xTitDiv.Add(new XElement("h2", "May 2016 Week 4"));
+            xTitDiv.Add(new XElement("h2", "June 2016 Week 4"));
             xheadDiv.Add(xTitDiv);
 
             var filePath = "logo.png";

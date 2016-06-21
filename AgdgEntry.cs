@@ -23,6 +23,11 @@ namespace AgdgRecap
         string _imageUrl;
         string _imageName;
 
+        AgdgEntry(XElement xAgdgEntryElem)
+        {
+            Game = xAgdgEntryElem.Elements("p").First().Value;
+        }
+
         AgdgEntry(JToken jObject, string postId)
         {
             _postId = postId;
@@ -40,6 +45,8 @@ namespace AgdgRecap
             Web = GetValue(lines, "Website(s):");
             if (Web == null)
                 Web = GetValue(lines, "Website:");
+            if (Web == null)
+                Web = GetValue(lines, "Websites:");
 
             GetProgress(lines);
 
@@ -70,6 +77,8 @@ namespace AgdgRecap
             comment = comment.Replace("</span>", "");
             comment = comment.Replace("<wbr>", "");
             comment = comment.Replace("&#039;", "'");
+            comment = comment.Replace("&gt;", ">");
+            comment = comment.Replace("&quot;", "\"");
             return comment;
         }
 
@@ -106,6 +115,11 @@ namespace AgdgRecap
                 return agdgEntry;
             else
                 return null;
+        }
+
+        public static AgdgEntry CreateEntry(XElement xAgdgEntryElem)
+        {
+            return new AgdgEntry(xAgdgEntryElem);
         }
 
         public void GetImage()
@@ -190,6 +204,11 @@ namespace AgdgRecap
             xD.Add(new XAttribute("class", "agdgEntryImage"));
             
             return xD;
+        }
+
+        public override string ToString()
+        {
+            return Game;
         }
     }
 }
