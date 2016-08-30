@@ -10,8 +10,11 @@ namespace AgdgRecap
 {
     class HtmlWriter
     {
-        public static void WriteHtml(List<AgdgEntry> entries, string htmlName)
+        static string _week;
+
+        public static void WriteHtml(List<AgdgEntry> entries, string htmlName, string week="Month YYYY Week #")
         {
+            _week = week;
             XDocument xDoc = new XDocument();
             XElement xHtml = new XElement("html");
             GenerateCss(xHtml);
@@ -59,7 +62,7 @@ namespace AgdgRecap
 
             XElement xTitDiv = new XElement("div");
             xTitDiv.Add(new XElement("h1", "AGDG Weekly Recap"));
-            xTitDiv.Add(new XElement("h2", "June 2016 Week 4"));
+            xTitDiv.Add(new XElement("h2", _week));
             xheadDiv.Add(xTitDiv);
 
             var filePath = "logo.png";

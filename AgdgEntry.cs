@@ -19,13 +19,34 @@ namespace AgdgRecap
         public List<string> BadProgress;
         bool _isValid = false;
         string _id;
-        string _postId;
+        string _postId;        
         string _imageUrl;
         string _imageName;
+        string _fullPath;
 
-        AgdgEntry(XElement xAgdgEntryElem)
+        AgdgEntry(XElement xAgdgEntryElem, string recapPath)
         {
-            Game = xAgdgEntryElem.Elements("p").First().Value;
+            var ps = xAgdgEntryElem.Descendants("p").ToList();
+
+            Game = ps[0].Value;
+            Dev = ps[1].Value.Replace(" Dev   : ", "");
+            Web = "";
+            Tools = "";
+            GoodProgress = new List<string>();
+            BadProgress = new List<string>();
+            var img = xAgdgEntryElem.Descendants("img").First().Attribute("src").Value;
+            _postId = Path.GetDirectoryName(img);
+            _imageName = Path.GetFileName(img);
+
+            _fullPath = Path.Combine(recapPath, img);
+        }
+
+        public void CopyImage()
+        {
+            if (!Directory.Exists(_postId))
+                Directory.CreateDirectory(_postId);
+
+            File.Copy(_fullPath, Path.Combine(_postId, _imageName ));
         }
 
         AgdgEntry(JToken jObject, string postId)
@@ -40,17 +61,22 @@ namespace AgdgRecap
             
             var lines = comment.Replace("<br>", "♫").Split('♫');
             Game = GetValue(lines, "Game Name:");
+
+            if (Game.Contains("Mech"))
+                Console.WriteLine();
+
             Dev = GetValue(lines, "Dev Name:");
             Tools = GetValue(lines, "Tools Used:");
             Web = GetValue(lines, "Website(s):");
             if (Web == null)
-                Web = GetValue(lines, "Website:");
-            if (Web == null)
-                Web = GetValue(lines, "Websites:");
+                Web = "";
 
             GetProgress(lines);
 
             if (Game == null || Game == "" || Dev == null || Tools == null || Web == null)
+                return;
+
+            if (Game == "Dark Elf" || (Game =="Untitled" && Dev == ""))
                 return;
             
             //Build image path
@@ -78,7 +104,8 @@ namespace AgdgRecap
             comment = comment.Replace("<wbr>", "");
             comment = comment.Replace("&#039;", "'");
             comment = comment.Replace("&gt;", ">");
-            comment = comment.Replace("&quot;", "\"");
+            comment = comment.Replace("&quot;", "\"");            
+
             return comment;
         }
 
@@ -87,8 +114,12 @@ namespace AgdgRecap
             foreach (var line in lines)
                 if (line.Length >= label.Length && line.Substring(0, label.Length) == label)
                 {
+                    if (line.Contains("href="))
+                        return "";
+
                     return line.Substring(label.Length).Trim().Replace("https://", "");
                 }
+
             return null;
         }
 
@@ -117,9 +148,9 @@ namespace AgdgRecap
                 return null;
         }
 
-        public static AgdgEntry CreateEntry(XElement xAgdgEntryElem)
+        public static AgdgEntry CreateEntry(XElement xAgdgEntryElem, string recapPath)
         {
-            return new AgdgEntry(xAgdgEntryElem);
+            return new AgdgEntry(xAgdgEntryElem, recapPath);
         }
 
         public void GetImage()
