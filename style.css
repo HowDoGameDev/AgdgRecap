@@ -1,15 +1,32 @@
+:root {	
+	--entry-border: #601848;
+	--entry-bg: #4d014c;
+	--entry-title-bg: #f37239;
+	--entry-info-bg: #bc4a49;	
+	--main-bg: #300030;
+	
+	--entry-title-fcolor: var(--entry-border);
+	--entry-info-fcolor:var(--entry-border);
+	--entry-progress-fcolor:var(--entry-title-bg);	
+	
+	--main-title-fcolor:var(--entry-title-bg);
+	--main-subtitle-fcolor:var(--entry-title-fcolor);
+	--main-border: var(--entry-info-bg);
+}
+
 body {
-	background-color:#29044a;
+	border: 8px solid var(--main-border);
+	background-color:var(--main-bg);
 	margin:0;
+	width:1404;	
 }
 
 div.agdgHeader {	
 	margin:0;
-	width:1372;
-	max-width:1372;
-	min-width:1372;	
-	height: 232;
-	color:0a6858;
+	width:1404;
+	max-width:1404;
+	min-width:1404;	
+	height: 232;	
 }
 
 div.agdgHeader div {
@@ -19,14 +36,16 @@ div.agdgHeader div {
 }
 
 div.agdgHeader h1 {
+	color:var(--main-title-fcolor);
 	margin:0px;
-	margin-top:16px;
+	margin-top:-8px;
 	font-size:80pt;
 }
 
 div.agdgHeader h2 {
+	color:var(--main-subtitle-fcolor);		
 	margin:0px;	
-	font-size:32pt;
+	font-size:56pt;
 }
 
 div.agdgHeader img {
@@ -42,12 +61,12 @@ div.agdgRow {
 	display:block;		
 }
 div.agdgEntry {
-	border: 4px solid #0a6858;
+	border: 8px solid var(--entry-border);
 	overflow:hidden;
 	width:300px;
-	height:400px;
+	height:432px;
 	display:inline-block;	
-	background-color:#0c2c56;
+	background-color:var(--entry-bg);
 	vertical-align:top;
 	margin:16px;
 	font-family:calibri;
@@ -72,17 +91,17 @@ div.agdgEntryImage img {
 }
 
 p.agdgEntryTitle {
-	background-color:#0a6858;	
+	background-color:var(--entry-title-bg);	
 	font-size:13pt;
-	color:#96be62;
+	color:var(--entry-title-fcolor);
 	text-align:center;	
 	margin:0;
 	font-weight:bold;
 }
 
-div.agdgEntryInfo {
-	color:#7ab318;
-	background-color:#0c2c56;
+div.agdgEntryInfo {	
+	color:var(--entry-info-fcolor);
+	background-color:var(--entry-info-bg);
 	margin-bottom:4px;	
 }
 
@@ -92,6 +111,7 @@ div.agdgEntryInfo p {
 }
 
 div.agdgEntryProgress p {
-	color:#0a6858;
+	color:var(--entry-progress-fcolor);
 	margin-left:8px;
+	font-size:8pt;	
 }
